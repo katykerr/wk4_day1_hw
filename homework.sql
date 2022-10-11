@@ -1,10 +1,15 @@
 -- 1. How many actors are there with the last name ‘Wahlberg’?
--- 2
+-- 2 Wahlbers
 
 SELECT last_name AS "Last Name", COUNT(last_name) AS "Count"
 FROM actor
 WHERE last_name = 'Wahlberg'
 GROUP BY last_name;
+
+-- SELECT first_name, last_name
+-- FROM actor
+-- WHERE last_name = 'Wahlberg'
+-- GROUP BY first_name, last_name;
 
 -- 2. How many payments were made between $3.99 and $5.99?
 -- 3273
@@ -48,7 +53,7 @@ WHERE last_name = 'Smith'
 GROUP BY last_name;
 
 -- 5. What store employee (get the id) sold the most rentals?
--- 1 Mike Hillyer  sold the most 8040  Jon Stephens sold 8004
+-- **1 Mike Hillyer  sold the most 8040**  Jon Stephens sold 8004
 
 SELECT staff_id AS "ID #", COUNT(*) AS "# Rented"
 FROM rental
@@ -86,28 +91,29 @@ WHERE film_id = 508;
 
 
 -- 8. From store_id 1, how many customers have a last name ending with ‘es’? (use customer table)
--- 21 customers with last name -'es'
+-- 13 customers with last name -'es'
 
 -- with number of names
 SELECT COUNT(last_name) AS "# of Customers"
 FROM customer
-WHERE last_name LIKE '%es';
+WHERE store_id = 1 AND last_name LIKE '%es';
 
 -- with names printed
 SELECT last_name, COUNT(*) AS "# of Customers"
 FROM customer
-WHERE last_name LIKE '%es'
+WHERE store_id = 1 AND last_name LIKE '%es'
 GROUP BY last_name;
 
 -- 9. How many payment amounts (4.99, 5.99, etc.) had a number of rentals above 250 for 
 --    customers with ids between 380 and 430? (use group by and having > 250)
 -- 3 payment amount have more than 250 rentals w/ customers w/ ids 380-430
 
-SELECT COUNT(*)
+SELECT  amount AS "Cost", COUNT(*) AS "# Sales"
 FROM payment
 WHERE customer_id BETWEEN 380 AND 430
 GROUP BY amount
 HAVING COUNT(*)>250;
+
 
 -- 10. Within the film table, how many rating categories are there? And what rating has the most movies total?
 --  5 categories most PG-13: 223
